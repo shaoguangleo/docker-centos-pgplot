@@ -16,7 +16,13 @@ RUN tar zxvf pgplot5.2.tar.gz && \
     cat makefile | sed "s;g77;gfortran;g" > makefile.new &&\
     rm makefile && \
     mv makefile.new makefile && \
-    cat makefile | sed "s;-Wall;-ffixed-form -ffixed-line-length-none -u -Wall -fPIC;g" > makefile.new &&\
+    cat makefile | sed "s;FFLAGD=-fno-backslash;FFLAGD=-fno-backslash -fPIC;g" > makefile.new &&\
+    rm makefile && \
+    mv makefile.new makefile && \
+    cat makefile | sed "s;FFLAGC=-Wall -O;FFLAGC=-ffixed-form -ffixed-line-length-none -u -Wall -O -fPIC;g" > makefile.new &&\
+    rm makefile && \
+    mv makefile.new makefile && \
+    cat makefile | sed "s;CFLAGC=-DPG_PPU -O2 -I.;CFLAGC=-DPG_PPU -O2 -I. -fPIC;g" > makefile.new &&\
     rm makefile && \
     mv makefile.new makefile && \
     make && \
